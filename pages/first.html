@@ -5,9 +5,9 @@
     <title>The First Page</title>
 </head>
 <!--引入本地外部css文件-->
-<link rel="stylesheet" type="text/css" href="css/first.css"/>
+<link rel="stylesheet" type="text/css" href="../css/first.css"/>
 <!--此处是引用本地js文件-->
-<script type="text/javascript" src="js/first.js"></script>
+<script type="text/javascript" src="../js/first.js"></script>
 <style type="text/css">
     /*
         先学习选择器，
@@ -86,11 +86,53 @@
     //alert('这是一个弹框！');
     // alert('Hello,js!');
 
+    // 你先定义一个变量。 哈？在哪 就在这
+    let a = 1; // 这个的数据类型是啥 num? 对
+    let b = 'String' // 这个呢 string
+    let flag = false; // 这个呢 布尔 所以你发现了什么？ let可以定义所有类型，虽然你这么说没啥问题，但严谨一点
+    flag = true; // 没错啊 因为const不好 不好?
+    // js的数据类型是由值决定的，和let var const没有任何关系。 重点！嗯嗯
+    // 常量只能被赋值一次，之后不能修改。重点！ 嗯嗯
+    const num = 1; // const是用来修饰常量的，常量你懂这个概念么？
+    // 在js里面用得最多的是object和array这两个数据类型。对象和数组。所以我们现在学习，怎么折腾对象和数组
+    // 首先，定义一个对象。你来写？回想一下java 想不起来 ok，那你看我写，注意了！重点！
+    let element = {}; // 结束 数组是[]吗 没错 你写吧
+    let array = []; // 宝宝真棒！
+    // 即使这样，我还是要说一说官方写法，就这两种写法了 我们学的对象的写法就是这种 那你咋不写呢 我忘记了呀 记住了哈 你看它为啥有黄色的警告呢
+    // 看清楚了么，现在语法要精练了
+    // 现在要学习判断类型。这是一个很重要的知识点，认真听哦
+    // 判断数字 isNaN(num) 这是一个方法，参数是你要判断的值，返回值是boolean。这个方法的意思是，is not a number，来，把上面的变量都判断一下
+    // 输出 输出你的判断结果 go 你切到元素那边看啥呢 那在哪看 Console啊 不是已经输出来了么 我没看到哈哈哈还奇怪怎么毫无反应
+    // 既然你写了控制台输出，那就一定在Console，如果没有，就是代码有问题，所以输出false是不是对的？ 是呀 继续，上面的所有变量都试一次
+    // 然后，我们再来学一种，typeof 去看看 以前好像用过！用过！在哪用过呀 java 那么你觉得哪个更准确一些呢 当然是typeof 你把对象和数组也判断一下 数组也是对象
+    // 那咋办呢，我判断对象和数组的时候，不就没辙了么 这个不准确 我如果是一个空的数组，那它就没下标了 这样
+    // 试试这个呢 就是判断前面变量是后面的类型吗 是的 看看 是哒 还有 这个专门判断数组的 好棒耶 所以，在判断类型的时候，几种方法灵活结合，就能达到想要的效果啦
+    console.dir(a instanceof Array);
+    console.dir(typeof b);
+    console.dir(typeof flag);
+    console.dir(typeof element);
+    console.dir(Array.isArray(array));
+
+    /** 一个对象在创建的时候，会调用一个初始化方法，这个方法就是构造函数。构造函数接收参数是这个对象的属性值。也就是说对象在创建的时候，如果构造函数提供了参数，那么你创建对象时，
+     *  所提供的参数，会在对象初始化时被赋值。这就是构造函数起到的作用。举个例子，我需要一个糖，我new 一个糖的时候，我说我要一个奶油味的，我把奶油味当做参数传给了这个new的糖，
+     *  那么糖在被new出来之后，就是奶油味的。
+     *  明白了么 明白，想吃 吃了就没了，先留着呗 老师，我想喝水 喝呗 打个报告 嘻嘻 去吧宝宝
+     *  报告！我可以进来吗 come in 谢谢老师 不客气mua mua
+     *  下面，我们来讲讲，js的几个大对象 好
+     */
+    // 第一个，window，表示用户当前浏览器的窗口。简单来说，window里面有这个页面上的所有东西，属性，方法，事件
+    // 我们常用到的，全部都在windows下面，比如，document，alert，history，localStrange，sessionStrange
+    // 教你一个方法，window.open() 试试，看看啥效果
+    // 我现在想跳到第二个页面上去，你有没有好办法 我试试 同一级不用输那么长 嘿嘿
+    // 这里涉及到两个概念 绝对路径和相对路径，绝对路径就是你刚才写的那一长串，相对路径就是目标文件相对于自身的路径，
+    // 观察一下上面我引入的外部js 顶上，不在这 不太懂
+    // window.open('second.html','_self');
+
     /**
      * 这是一个方法 onclick是一个事件，按钮事件，表示单击按钮时，触发这个方法
      * 试试,所有的方法都是有参数的，你可以添加个参数我看看么
      */
-    function showMessage (e) {
+    function showMessage(e) {
         // 下面教你看浏览器的控制台，console的输出都会在控制台中显示
         // 这里是我要讲的，alert这个东东有问题，准确的值应该使用console来获取
         // 既然你学过html，给我做个登录框呗，有用户名，有密码 !!忘记了！
@@ -121,8 +163,7 @@
         // var element1 = document.getElementsByClassName()
         // var element2 = document.getElementsByName()
     }
-</script>
-<script type="text/javascript">
+
     /**
      * 回想一下我昨天讲的东西，你有没有思路
      * 右边的div都被隐藏了，你把事件写在右边的话，怎么触发呢
@@ -204,7 +245,7 @@
          * 好啦，下课！ 老师再见 等等
          * 教你提交代码 点那个绿色的√
          */
-        for(let i = 0; i<elements.length;i++) {
+        for (let i = 0; i < elements.length; i++) {
             if (elements[i].localName === 'div') {
                 // 看好我的操作 这是一个优雅代码的典型 这里的判断只需要一条代码 结束
                 elements[i].style.display = elements[i].style.display === 'none' ? 'block' : 'none';
@@ -217,6 +258,10 @@
             }
         }
 
+    }
+    function toSecondPage() {
+        let str = '12345';
+        location.href = 'second.html?str='.concat(str);
     }
 </script>
 <body>
@@ -240,6 +285,7 @@
     </form>-->
      <!--html的注释，用这个，我来给你完善，密码框你自己写哈-->
     <!--你有办法设置两个div的宽度是页面的50%么-->
+    <button onclick="toSecondPage()">兔子洞</button>
     <div class="left-div" onclick="getDiv()">
         提起编程思想，这个概念在我的脑海中一直是一个非常模糊的概念，我所知道的是作为一名开发人员，每个人都拥有这种能力，并且要不断地去探索到底怎么才能提高编程思想。那什么是编程思想呢？我觉得这个问题没有固定的答案，如果非要给一个定义，那大概就是用计算机来解决人们实际问题的思维方式，即编程思想。有面向过程编程，结构化编程以及面向对象编程。
     </div>

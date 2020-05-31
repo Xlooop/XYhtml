@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript">
+    let str = location.search;
+    // 截取字符串去除?
+    str = str.substring(1);
+    let value = str.substr(str.indexOf('=') + 1);
+    window.onload = function(){
+        document.getElementById('text').innerText = value;
+    };
+    function toFirstPage() {
+        history.go(-1);
+    }
+</script>
+<body>
+    这是第二个页面！
+    我拿到了：<label id="text"></label>
+    <button type="button" onclick="toFirstPage()">时光机</button>
+    <a href="http://www.baidu.com" target="_blank">百度一下</a>
+    <a href="http://www.4399.com" target="_blank">4399</a>
+</body>
+</html>
