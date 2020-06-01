@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+<script type="text/javascript" src="../js/first.js"></script>
+<style type="text/css">
+    html,body{
+        height: 100%;
+        background-image:url("../01.jpg");
+        background-size: cover;
+    }
+    body{
+        display: flex;
+        align-items: center;
+        align-content: center;
+    }
+    /**
+        这里的叫内联样式 明白了么 嗯
+        样式有优先级，行内 > 内联 > 外部 这个记好了
+     */
+    .login-div{
+        /*border: 1px lightgreen;*/
+        background-color:transparent;
+        margin:0 auto;
+    }
+    .login-div > div {
+        width: 400px;
+        margin: 10px 0px;
+        text-align: center;
+    }
+
+    /**
+        样式选择器：元素选择器，表示所有的label元素 这个理解么 你让我用class的呀 慢慢来
+     */
+    /**label{
+        width: 50px;
+        text-align: right;
+    }*/
+    /**
+        一个class，可以被多个元素引用 这个理解么 不 说说你的疑惑 引用是指？是指class="div-lab" 不同的元素的class都可以叫这个名字？
+     */
+    .div-lab {
+        width: 60px;
+        /*text-align: right;*/
+        display: inline-block;
+    }
+</style>
+<script type="text/javascript">
+    function getAlert() {
+        let element = document.getElementById('userName');
+        let element2 = document.getElementById('password');
+        if(element.value === '1234'&& element2.value ==='5678'){
+            alert("登录成功");
+            location.href = 'first.html';
+        }
+        else {
+            alert("登录失败");
+        }
+    }
+</script>
+<body>
+    <div class="login-div">
+            <!--在标签里写style的，就是行内样式，html元素都支持style属性-->
+            <!--像这里，我写了两个一模一样的行内样式，所以把它做成class会比较好，改成class吧-->
+        <div>
+            <label class="div-lab">用户名: </label>
+            <input id="userName" type="text" name="userName">
+        </div>
+        <div>
+            <label class="div-lab">密码: </label>
+            <input id="password" type="password" name="psw">
+        </div>
+        <div>
+            <button type="button" onclick="getAlert()">登录</button>
+        </div>
+    </div>
+</body>
+</html>
