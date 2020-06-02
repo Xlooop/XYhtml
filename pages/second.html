@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style type="text/css">
+    .food {
+        color: red;
+    }
+    .not-food {
+        color: yellow;
+    }
+</style>
 <script type="text/javascript">
     let str = location.search;
     // 截取字符串去除?
@@ -15,6 +23,30 @@
     function toFirstPage() {
         history.go(-1);
     }
+    function createManyElements() {
+        let box = document.getElementById('box')
+        let str = '';
+        for(let i = 1; i<=8; i++){
+            str += '<p class="'+ (i%2 === 0 ? 'food' : 'not-food') +'" id="p_temp_'+ i +'">小饼干</p>';
+            /*// 给每个p元素加一个id，id的值是不能重复的 思路？
+            let p = document.createElement('p');
+            p.innerText = '小饼干';
+            p.id = 'p_temp_' + i;
+            p.className = 'not-food';
+            if (i%2 === 0) {
+                p.className = 'food';
+            }
+            // p.className = i%2 === 0 ? 'food' : 'not-food';
+            /!*if(i%2 === 0){
+                p.className = 'food';
+            }else{
+                p.className = 'not-food';
+            }*!/
+            box.appendChild(p);*/
+        }
+        box.innerHTML = str;
+    }
+    哦
 </script>
 <body>
     这是第二个页面！
@@ -22,5 +54,7 @@
     <button type="button" onclick="toFirstPage()">时光机</button>
     <a href="http://www.baidu.com" target="_blank">百度一下</a>
     <a href="http://www.4399.com" target="_blank">4399</a>
+    <button type="button" onclick="createManyElements()">炼丹炉</button>
+    <div id="box"></div>
 </body>
 </html>
