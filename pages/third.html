@@ -3,14 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
 </head>
+<style type="text/css">
+    .surprise{
+        height: 100px;
+        width: 200px;
+        background-color: yellow;
+        /*display: none;*/
+    }
+</style>
+<script>
+    // 这个时候会出现一些很奇怪的写法，重点记住这些就行了
+    // 准确来说，在html中带on的就是表示事件，事件的意思就是xx的时候，也就是说，这里表示，页面元素加载完成后。这不是一个方法，这是一个事件。
+    // 举个例子，onclick 这是个什么事件？ 单击
+    //window.onload = () =>{  // 箭头函数，表示function(){} 这个可以看懂么 嗯嗯 我这个函数表示啥来着 页面所有元素加载完成后
 
+    // }
+    // 当我们引入jquery之后，这个方法就不会再用了。我们下载的jquery有问题么 哈哈哈 嘿嘿，那咋办啊
+    $(function(){ // 在jquery上的写法，这里等价于上面的事件。你在这里拿一下下面这两个元素
+        let name = document.getElementById("name");
+        let color = document.getElementById("color");
+        // 很好，下面看我jquery怎么写的 输出来比较一下，看是不是一样的 一样么 不知道。。。你不点开看看么 昂 一样 你再把这个变量用$包一下 再看 变了诶
+        // 所以说，jquery和原生js代码拿到的对象虽然是同一个，但不是一样的。但这并不是问题的重点。jquery有jquery的用法
+        $('#name').val('4567890'); // 猜猜这是干嘛的 拿它的值的 对了 试试看 run 不用输出吗 肯定要呀 你写呀 这个呢 赋值的 明白了么 有参数和没参数的区别 明白了
+        // 讲给我听听？ 断了吗？ 没 没有参数就是取值，有参数就是给它赋值 输出是啥呀？哈哈哈哈 输出不是你的console.dir么 我好饿，中午没吃饭
+        // 又到了咱们喜闻乐见的找方法时间了，看看有没有眼熟的
+    });
+    // 你干啥？ 写事件 事件不是ondbclick么对哦 e()是什么？方法 方法怎么定义？function 要$么？不用
+    function e() {
+        // 你想干啥就干啥呗 现在有个需求，生成一个随机数，>100的才中奖 百度js随机数 不是random吗 是呀 在哪生成 就在这，点击按钮后
+        // 就这里几个数字，结果你都明白了，所以floor的作用是什么呢，向下取整
+        // 再猜猜 5 5 4 4 这便是四舍五入了 明白了么 当然 这呢 随机数下取整 这不是四舍五入么 怎么下取整？看错了 哈哈哈哈 再说一遍 随机数四舍五入
+        // 这里只有两个值对么 0 1 现 我在想 0 - 150 run 眼见为实 继续么
+        let i = Math.ceil(Math.random() * 150);
+        let s = document.getElementsByClassName('surprise');
+        if (i > 100){
+            s[0].style.display = 'block';
+        }else {
+            s[0].style.display = 'none';
+            alert('谢谢惠顾');
+        }
+        console.dir(s[0]);
+        console.dir(i);
+        ////咋不好使 你不是写的双击事件么 啊哈哈哈哈哈哈
+    }
+    function er() {
+        let i = Math.ceil(Math.random() * 150);
+        if( i > 100){
+            let s = document.getElementsByClassName('surprise');
+            if(s.length === 0){ // 你说得对！mua! 那我块块div呢，初始是none也 谢谢惠顾要把中奖的隐藏啦 那你写呀 找不到s了 看看放在哪里好呢 不知道呢
+                let sp = document.getElementById('sp');
+                // d是一个对象Element innerHtml是一个字符串属性，它的值是字符串，你让它等于一个对象，肯定是有问题的呀 ……我不喜欢这一长串的 就很乱
+                // 不是喜不喜欢的问题 看清楚是一个怎样的字符串 我不想看了 今天想太多了 不想去理清楚了 很烦躁 好吧 那不看了 去吃点东西吧 我不饿啊 好的吧
+                // 那现在干啥 现在看不进去 明天吧好滴
+                let d = document.createElement('div');
+                d.className = 'surprise';
+                d.innerText ='您中奖啦！';
+                sp.appendChild(d);
+            }
+            // s[0].style.display = 'block'; 你想一想逻辑？该怎么改呢如果display是none，i>100的时候要显示出来 我觉得你想得有点多
+            // 既然用生成的操作，那就不要想隐藏不隐藏了，思考一下innerHtml这个属性？ 想不出来 明白了么 没有 这个是用来设置元素的子元素的
+            // 也就是说，这里的字符串就是它的子元素 所以上面的代码，怎么优化一下呢 这样吗？试试呀 这个东西好像见过 肯定不对呀
+        }else {
+            sp.innerHTML = '';
+            alert('谢谢惠顾。');
+        }
+        console.dir(i);
+    }
+</script>
 <body>
-<div id="page-1">
-    <script type="text/javascript">
-
-    </script>
-</div>
-
+    <input id="name" placeholder="输入名称" value="5555"/>
+    <input id="color" placeholder="输入颜色" value="red"/>
+    <button id="btn" onclick="er()">试试手气</button>
+    <span id="sp"></span>
+    <!--<div class="surprise">您中奖啦！</div>-->
 </body>
 </html>
