@@ -7,10 +7,14 @@
 </head>
 <style type="text/css">
     .surprise{
-        height: 100px;
+        height: 150px;
         width: 200px;
         background-color: yellow;
-        /*display: none;*/
+        display: none;
+    }
+    .new-class {
+        background-image: url("../01.jpg");
+        background-size: cover;
     }
 </style>
 <script>
@@ -50,33 +54,51 @@
     }
     function er() {
         let i = Math.ceil(Math.random() * 150);
+        let sp = document.getElementById('sp');
         if( i > 100){
             let s = document.getElementsByClassName('surprise');
             if(s.length === 0){ // 你说得对！mua! 那我块块div呢，初始是none也 谢谢惠顾要把中奖的隐藏啦 那你写呀 找不到s了 看看放在哪里好呢 不知道呢
-                let sp = document.getElementById('sp');
+
                 // d是一个对象Element innerHtml是一个字符串属性，它的值是字符串，你让它等于一个对象，肯定是有问题的呀 ……我不喜欢这一长串的 就很乱
                 // 不是喜不喜欢的问题 看清楚是一个怎样的字符串 我不想看了 今天想太多了 不想去理清楚了 很烦躁 好吧 那不看了 去吃点东西吧 我不饿啊 好的吧
                 // 那现在干啥 现在看不进去 明天吧好滴
-                let d = document.createElement('div');
+                /*let d = document.createElement('div');
                 d.className = 'surprise';
-                d.innerText ='您中奖啦！';
-                sp.appendChild(d);
+                d.innerText ='您中奖啦！';好啦
+                sp.appendChild(d);*/
+                sp.innerHTML = '<div class="surprise">您中奖了！</div>';
             }
             // s[0].style.display = 'block'; 你想一想逻辑？该怎么改呢如果display是none，i>100的时候要显示出来 我觉得你想得有点多
             // 既然用生成的操作，那就不要想隐藏不隐藏了，思考一下innerHtml这个属性？ 想不出来 明白了么 没有 这个是用来设置元素的子元素的
-            // 也就是说，这里的字符串就是它的子元素 所以上面的代码，怎么优化一下呢 这样吗？试试呀 这个东西好像见过 肯定不对呀
+            // 也就是说，这里的字符串就是它的子元素 所以上面的代码。嗯嗯 inner html是HTML代码 明白了，但是不太会写  就好了嘛
         }else {
             sp.innerHTML = '';
             alert('谢谢惠顾。');
         }
         console.dir(i);
     }
+
+    function textJquery() {
+        let i = Math.ceil(Math.random() * 150);
+        $('.surprise').addClass('new-class');
+        $('.surprise').slideDown();
+        // $('.surprise').css('display', i > 100 ? 'block' : 'none');
+        $('.surprise').text(i > 100 ? '您中奖啦！' : '谢谢惠顾！');
+        i > 100 ? $('#btn2').show() : $('#btn2').hide();
+    }
+
+    function textJquery2() {
+        let i = Math.ceil(Math.random() * 150);
+        $('#sp').html('<div class="surprise new-class"></div>');
+        $('#sp div').css('display','block');
+    }
+
 </script>
 <body>
     <input id="name" placeholder="输入名称" value="5555"/>
     <input id="color" placeholder="输入颜色" value="red"/>
-    <button id="btn" onclick="er()">试试手气</button>
+    <button id="btn" onclick="textJquery2()">试试手气</button>
+<!--    <button id="btn2" onclick="slideUp()">收起</button>-->
     <span id="sp"></span>
-    <!--<div class="surprise">您中奖啦！</div>-->
 </body>
 </html>
