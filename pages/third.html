@@ -33,6 +33,17 @@
         $('#name').val('4567890'); // 猜猜这是干嘛的 拿它的值的 对了 试试看 run 不用输出吗 肯定要呀 你写呀 这个呢 赋值的 明白了么 有参数和没参数的区别 明白了
         // 讲给我听听？ 断了吗？ 没 没有参数就是取值，有参数就是给它赋值 输出是啥呀？哈哈哈哈 输出不是你的console.dir么 我好饿，中午没吃饭
         // 又到了咱们喜闻乐见的找方法时间了，看看有没有眼熟的
+        /**
+         * 参数一，做什么事情，
+         * 参数二，间隔几毫秒
+         */
+        setInterval(doTime, 1000);
+        setInterval(function() {
+            console.dir('11122344567890');
+        }, 1000);
+        // 延迟多少时间，做什么事
+        // setTimeout(doTime, 10000);
+
     });
     // 你干啥？ 写事件 事件不是ondbclick么对哦 e()是什么？方法 方法怎么定义？function 要$么？不用
     function e() {
@@ -93,6 +104,25 @@
         $('#sp div').css('display','block');
     }
 
+
+    function doTime() {
+        let dateTime = new Date();
+        let y = dateTime.getFullYear();
+        let mon = dateTime.getMonth() + 1 < 10 ? '0' + (dateTime.getMonth() + 1) : dateTime.getMonth() + 1;
+        let d = dateTime.getDate() < 10 ? '0' + dateTime.getDate() : dateTime.getDate();
+        let h = dateTime.getHours() < 10 ? '0' + dateTime.getHours() : dateTime.getHours();
+        let min = dateTime.getMinutes() < 10 ? '0' + dateTime.getMinutes() : dateTime.getMinutes();
+        let s = dateTime.getSeconds() < 10 ? '0' + dateTime.getSeconds() : dateTime.getSeconds();
+        let str = y + '-' + mon + '-' + d + ' ' + h + ':' + min + ':' + s;
+        $('#dateTime').text(str);
+
+        /*$('#month').text(dateTime.getMonth() + 1 < 10 ? '0' + (dateTime.getMonth() + 1) : dateTime.getMonth() + 1);
+        $('#day').text(dateTime.getDate() < 10 ? '0' + dateTime.getDate() : dateTime.getDate());
+        $('#hour').text(dateTime.getHours() < 10 ? '0' + dateTime.getHours() : dateTime.getHours());
+        $('#min').text(dateTime.getMinutes() < 10 ? '0' + dateTime.getMinutes() : dateTime.getMinutes());
+        $('#s').text(dateTime.getSeconds() < 10 ? '0' + dateTime.getSeconds() : dateTime.getSeconds());*/
+    }
+
 </script>
 <body>
     <input id="name" placeholder="输入名称" value="5555"/>
@@ -100,5 +130,10 @@
     <button id="btn" onclick="textJquery2()">试试手气</button>
 <!--    <button id="btn2" onclick="slideUp()">收起</button>-->
     <span id="sp"></span>
+    <!--时间格式：YYYY-MM-DD hh:mm:ss-->
+    <!--四位数的年份，两位数的月份，两位数的天，两位数的时，两位数的分，两位数的秒-->
+    <div>
+        <span id="dateTime"></span>
+    </div>
 </body>
 </html>
