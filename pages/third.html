@@ -16,6 +16,14 @@
         background-image: url("../01.jpg");
         background-size: cover;
     }
+    table tr th,table tr td {
+        border:1px dashed black;
+    }
+    #table{
+        border: 1px solid black;
+        text-align: center;
+
+    }
 </style>
 <script>
     // 这个时候会出现一些很奇怪的写法，重点记住这些就行了
@@ -37,12 +45,14 @@
          * 参数一，做什么事情，
          * 参数二，间隔几毫秒
          */
-        setInterval(doTime, 1000);
-        setInterval(function() {
+       // setInterval(doTime, 1000);
+        /*setInterval(function() {
             console.dir('11122344567890');
-        }, 1000);
+        }, 1000);*/
         // 延迟多少时间，做什么事
         // setTimeout(doTime, 10000);
+        // ajax异步请求
+
 
     });
     // 你干啥？ 写事件 事件不是ondbclick么对哦 e()是什么？方法 方法怎么定义？function 要$么？不用
@@ -122,14 +132,47 @@
         $('#min').text(dateTime.getMinutes() < 10 ? '0' + dateTime.getMinutes() : dateTime.getMinutes());
         $('#s').text(dateTime.getSeconds() < 10 ? '0' + dateTime.getSeconds() : dateTime.getSeconds());*/
     }
-
+    function getData(){
+        $.ajax({
+            url: 'http://rap2.taobao.org:38080/app/mock/256254/table/list',
+            type: 'post',
+            data: {
+                name: '',
+                sex: '',
+                date: ''
+            },
+            success: function (result) {
+                let array = result.data;
+                for(let i = 0;i < array.length;i++){
+                    str = '<tr><td>'+ (i + 1 ) +'</td>' +
+                            '<td>'+ array[i].name +'</td>' +
+                            '<td>'+ (array[i].sex === 0 ? '女': '男') + '</td>' +
+                            '<td>'+ array[i].age +'</td>' +
+                            '<td>'+ array[i].date +'</td>' +
+                            '<td>'+ array[i].email +'</td>' +
+                        '</tr>';
+                    $('#table').append(str);
+                }
+            }
+        });
+    }
 </script>
 <body>
     <input id="name" placeholder="输入名称" value="5555"/>
     <input id="color" placeholder="输入颜色" value="red"/>
-    <button id="btn" onclick="textJquery2()">试试手气</button>
+    <button id="btn" onclick="getData()">试试手气</button>
 <!--    <button id="btn2" onclick="slideUp()">收起</button>-->
     <span id="sp"></span>
+    <table id="table" >
+        <tr>
+            <th>序号</th>
+            <th>名称</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>出生日期</th>
+            <th>邮箱</th>
+        </tr>
+    </table>
     <!--时间格式：YYYY-MM-DD hh:mm:ss-->
     <!--四位数的年份，两位数的月份，两位数的天，两位数的时，两位数的分，两位数的秒-->
     <div>
