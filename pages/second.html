@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
 </head>
 <style type="text/css">
     .food {
@@ -18,7 +19,7 @@
     str = str.substring(1);
     let value = str.substr(str.indexOf('=') + 1);
     window.onload = function(){
-        document.getElementById('text').innerText = value;
+        //document.getElementById('text').innerText = value;//嘻嘻
     };
     function toFirstPage() {
         history.go(-1);
@@ -46,15 +47,43 @@
         }
         box.innerHTML = str;
     }
+    function f(y) {
+        var x=y * y;
+        return x;
+    }
+    for(x=0;x< 5;x++) {
+        y=f(x);
+        document.writeln(y); // 输出语句
+    }
+    function s() {
+        var student = new Object();
+        student.study = function() {
+            window.alert('开始学习了');
+        }
+        study();
+    }
+    function showKey(t) {
+        console.dir(t);
+        let s = document.getElementById('text');//忘记啦
+        console.dir(s.innerHTML);//这个是标签下的所有。。。
+        console.dir(s.innerText);//这个只是文本
+        $('#text').html();
+        $('#text').text();
+        console.dir($('#text').html());
+        console.dir($('#text').text());//不知道了，不会 没听清
+    }
 
 </script>
 <body>
     这是第二个页面！
-    我拿到了：<label id="text"></label>
+    我拿到了：<label id="text">1234
+    <span>5678</span>
+    </label>
     <button type="button" onclick="toFirstPage()">时光机</button>
     <a href="http://www.baidu.com" target="_blank">百度一下</a>
     <a href="http://www.4399.com" target="_blank">4399</a>
     <button type="button" onclick="createManyElements()">炼丹炉</button>
     <div id="box"></div>
+<input onkeypress="showKey(event)" />
 </body>
 </html>
