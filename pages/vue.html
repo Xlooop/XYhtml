@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<script src="../vue.js" type="text/javascript"></script>
+<script src="../js/vue.js" type="text/javascript"></script>
+<style>
+    .c{
+        color: lightpink;
+    }
+</style>
 <body>
+
+    <!--v-if和v-show的使用场景
+        v-if:初始化不加载，根据变量值决定是否生成元素，无需频繁切换元素
+        v-show:初始化加载，根据变量值决定是否显示该元素，频繁切换元素
+    -->
+
     <div id="app">
         {{ a }}
+        <button v-on:click="changeB">click</button>
+        <span v-show="b">1234</span>
+        <button v-on:click="changeP">changeP</button>
+        <p v-for="obj in array">{{obj.value}}</p>
+        <!-- 双向绑定 -->
+        <input type="text" v-model="text" /> <br/>
+        <label v-bind:style="textStyle">{{text}}</label>
     </div>
     <script type="text/javascript">
         // var a = new Vue({
@@ -16,12 +34,56 @@
         //         s1:'Hello Vue!'
         //     }
         // });
-        var data = { a : 1 };
         var vm = new Vue({
             el:'#app',
-            data: data
+            data: {
+                a: '22222',
+                b: true,
+                array:[{
+                    label: 1,
+                    value: '1个憨憨'
+                },{
+                    label: 2,
+                    value: '2个憨憨'
+                },{
+                    label: 3,
+                    value: '3个憨憨'
+                },{
+                    label: 4,
+                    value: '4个憨憨'
+                }],
+                text: '',
+                textStyle: {}
+            },
+            methods: {
+                changeB(){
+                    this.b = !this.b;
+                    this.textStyle = {color: 'yellow',fontSize: '15px',backgroundColor:'lightblue'};
+                },
+                changeP(){
+                   let ran =  Math.ceil(Math.random() * 10);
+                   if (ran%2 !== 0){
+                       if (this.array.length === 0){
+                           this.array.push({label: 1,
+                               value: '1个憨憨'
+                           })
+                       }else {
+                           let temp = this.array[this.array.length - 1].label + 1;
+                           this.array.push({label: temp,
+                               value: temp + '个憨憨'
+                           })
+                       }
+                   }else{
+                        this.array.pop();
+                   }
+                }
+            }
         });
-        data.a = 'hi~';
+        // js的for in循环
+        /*let array = [1, 2, 3, 4];
+        for(obj in array){
+            console.dir(obj);
+        }*/
     </script>
 </body>
 </html>
