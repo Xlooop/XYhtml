@@ -44,8 +44,13 @@
                 p.className = 'not-food';
             }*!/
             box.appendChild(p);*/
+
         }
         box.innerHTML = str;
+        $.fn.extend({'fun1':function(){
+                alert('hello');
+            }})
+        $("button").fun1();
     }
     function f(y) {
         var x=y * y;
@@ -72,7 +77,6 @@
         console.dir($('#text').html());
         console.dir($('#text').text());//不知道了，不会 没听清
     }
-
 </script>
 <body>
     这是第二个页面！
@@ -84,6 +88,7 @@
     <a href="http://www.4399.com" target="_blank">4399</a>
     <button type="button" onclick="createManyElements()">炼丹炉</button>
     <div id="box"></div>
+    <input type="button" value="click" onclick="alert(1)"/>e
 <input onkeypress="showKey(event)" />
 </body>
 </html>

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" />
     <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../layui/layui.js" ></script>
 </head>
 <style type="text/css">
     .surprise{
@@ -16,13 +18,8 @@
         background-image: url("../01.jpg");
         background-size: cover;
     }
-    table tr th,table tr td {
-        border:1px dashed black;
-    }
-    #table{
-        border: 1px solid black;
-        text-align: center;
-
+    .c-input{
+        width: 350px;
     }
 </style>
 <script>
@@ -33,6 +30,7 @@
 
     // }
     // 当我们引入jquery之后，这个方法就不会再用了。我们下载的jquery有问题么 哈哈哈 嘿嘿，那咋办啊
+
     $(function(){ // 在jquery上的写法，这里等价于上面的事件。你在这里拿一下下面这两个元素
         let name = document.getElementById("name");
         let color = document.getElementById("color");
@@ -52,8 +50,57 @@
         // 延迟多少时间，做什么事
         // setTimeout(doTime, 10000);
         // ajax异步请求
+        console.dir($('table').children());
+        console.dir($('tr').closest("table"));
+        console.dir($('table').next());
+        $("table").find("tr").css("background-color","springgreen");
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
 
-
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#test1',//指定元素
+            });
+            laydate.render({
+                elem: '#birthday',//指定元素
+            });
+        });
+       //  表格数据渲染完成以后，给tr加一个背景色
+        layui.use('table', function(){
+            var table = layui.table;
+            table.render({
+                elem: '#table',
+                height: 500,
+                url: 'http://rap2.taobao.org:38080/app/mock/256254/table/list',//数据接口
+                where: {
+                    name: '',
+                    sex: '',
+                    date: ''
+                },
+                parseData: function(res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0, //解析接口状态
+                        "msg": '', //解析提示文本
+                        "count": 100, //解析数据长度
+                        "data": res.data //解析数据列表
+                    };
+                },
+                method: 'post',
+                page: true,//开启分页
+                cols: [[ //表头
+                    {field: 'id', title: '序号', sort: true},
+                    {field: 'name', title: '名称', sort: true},
+                    {field: 'sex', title: '性别', sort: true},
+                    {field: 'age', title: '年龄',sort: true},
+                    {field: 'date', title: '出生日期',sort: true},
+                    {field: 'email', title: '邮箱'},
+                ]]
+            });
+         });
+        layui.use('form',function () {
+            let form = layui.form;
+            form.render();
+        })
     });
     // 你干啥？ 写事件 事件不是ondbclick么对哦 e()是什么？方法 方法怎么定义？function 要$么？不用
     function e() {
@@ -153,28 +200,144 @@
                         '</tr>';
                     $('#table').append(str);
                 }
+                $('table').find("tr").not(":first,:odd").css("background-color","palegreen");
             }
         });
     }
+    function ct() {
+        let p = {
+            name: $('#name').val(),
+            sex: $('#color').val(),
+            date: $('#test1').val()
+        }
+        createTable(p);
+    }
+    function createTable(params) {
+        layui.use('table', function(){
+            var table = layui.table;
+            table.render({
+                elem: '#table',
+                height: 500,
+                url: 'http://rap2.taobao.org:38080/app/mock/256254/table/list',//数据接口
+                where: {
+                    name: params.name,
+                    sex: params.sex,
+                    date: params.date
+                },
+                parseData: function(res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0, //解析接口状态
+                        "msg": '', //解析提示文本
+                        "count": 100, //解析数据长度
+                        "data": res.data //解析数据列表
+                    };
+                },
+                method: 'post',
+                page: true,//开启分页
+                cols: [[ //表头
+                    {field: 'id', title: '序号', sort: true},
+                    {field: 'name', title: '名称', sort: true},
+                    {field: 'sex', title: '性别', sort: true},
+                    {field: 'age', title: '年龄',sort: true},
+                    {field: 'date', title: '出生日期',sort: true},
+                    {field: 'email', title: '邮箱'},
+                ]]
+            });
+        });
+    }
+    function biu() {
+        layui.use('layer', function () {
+            let layer = layui.layer;
+            layer.open({
+                type: 1,
+                content: $('#form'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                area: ['500px', '400px'],
+                btn: ['提交', '取消'],
+                yes: function (index, layero) {
+                    $.ajax({
+                        url: 'http://rap2.taobao.org:38080/app/mock/256254/table/update',
+                        type: 'post',
+                        data: {
+                            name: '',
+                            sex: '',
+                            date: ''
+                        },
+                    })
+                },
+                btn2: function (index, layero) {
+
+                    //return false 开启该代码可禁止点击该按钮关闭
+                }
+            });
+        });
+    }
 </script>
+<html>
 <body>
-    <input id="name" placeholder="输入名称" value="5555"/>
-    <input id="color" placeholder="输入颜色" value="red"/>
-    <button id="btn" onclick="getData()">试试手气</button>
+<div class="layui-row" style="padding-top:10px;">
+    <div class="layui-col-md3" style="padding-right: 40px">
+        <input id="name" class="layui-input" placeholder="输入名称" value="5555"/>
+    </div>
+    <div class="layui-col-md3" style="padding-right: 40px">
+        <input id="color" class="layui-input" placeholder="输入颜色" value="red"/>
+    </div>
+    <div class="layui-col-md3" style="padding-right: 40px">
+        <input type="text" class="layui-input" id="test1">
+    </div>
+    <div class="layui-col-md3">
+        <button id="btn" class="layui-btn" onclick="ct()">试试手气</button>
+    </div>
+</div>
+<div class="layui-row" style="padding-top: 5px">
+    <button class="layui-btn" onclick="biu()">biu</button>
+</div>
 <!--    <button id="btn2" onclick="slideUp()">收起</button>-->
     <span id="sp"></span>
-    <table id="table" >
-        <tr>
+    <table id="table">
+        <!--<tr>
             <th>序号</th>
             <th>名称</th>
             <th>性别</th>
             <th>年龄</th>
             <th>出生日期</th>
             <th>邮箱</th>
-        </tr>
+        </tr>-->
     </table>
     <!--时间格式：YYYY-MM-DD hh:mm:ss-->
     <!--四位数的年份，两位数的月份，两位数的天，两位数的时，两位数的分，两位数的秒-->
+<div id="form" style="display: none" class="layui-form">
+    <div class="layui-form-item"  style="padding-top: 20px">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" class="layui-input c-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="1" title="男">
+            <input type="radio" name="sex" value="0" title="女" checked>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-block">
+            <input type="text" name="age" class="layui-input c-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">出生日期</label>
+        <div class="layui-input-block">
+            <input type="text" id="birthday" name="birthday" class="layui-input c-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="email" class="layui-input c-input">
+        </div>
+    </div>
+</div>
     <div>
         <span id="dateTime"></span>
     </div>
